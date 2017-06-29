@@ -1,14 +1,18 @@
 // Modules and Variables
-@import "partials/base";
 @import "modules/colors";
 
 // Partials
+@import "partials/base";
+@import "partials/typography";
 //@import "partials/reset";
 //@import "partials/typography";
 //@import "partials/buttons";
 //@import "partials/figures";
 //@import "partials/grids";
 // ...
+
+// Components
+@import "components/main";
 
 // Third-party
 //@import "vendor/colorpicker";
