@@ -28,7 +28,6 @@
     font-size: xx-large; }
 
 .App-body {
-  align-content: center;
   padding-top: 10px; }
 
 .search-bar {
@@ -37,7 +36,8 @@
   padding-right: 15px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   width: 50%;
-  margin: auto; }
+  margin: auto;
+  max-width: 500px; }
   .search-bar .search-input {
     text-align: left;
     height: 40px;
