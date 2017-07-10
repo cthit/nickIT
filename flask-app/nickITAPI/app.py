@@ -6,8 +6,8 @@ app = Flask(__name__)
 def hello_world():
     return 'Hello, World!'
 
-@app.route('/<id>')
-def example(id=None):
+@app.route('/search/<query>')
+def example(query=None):
     resp = Response(id)
     resp.headers['Access-Control-Allow-Origin'] = 'http://localhost:3000'
     return resp
