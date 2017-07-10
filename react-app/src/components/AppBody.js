@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import '../../App.css';
+import '../App.css';
 import SearchBar from './SearchBar.js';
-import InfoBody from './info-body/InfoBody.js';
+import InfoBody from './InfoBody.js';
 
 class AppBody extends Component {
   render() {
