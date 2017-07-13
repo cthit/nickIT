@@ -11,12 +11,15 @@ class SearchBar extends Component {
   }
 
   request() {
-    request.get("localhost:5000/")
-    .query('search=' + this.previous_input)
-    .type('json')
-    .end( (err, res) => {
-
-    })
+    request
+      .get("http://localhost:5000/search/" + this.previous_input)
+      .accept('json')
+      .end( (err, res) => {
+        console.log('err: ' + err);
+        if (res) {
+          console.log(JSON.parse(res.text));
+        }
+      });
   }
 
   render() {
@@ -31,7 +34,7 @@ class SearchBar extends Component {
     var raw_input = document.getElementById('search-input').value;
     this.previous_input = raw_input;
     this.request();
-    console.log("i did stuff");
+    //console.log("i did stuff");
     // send raw_input to Flask here!
   }
 
