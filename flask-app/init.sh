@@ -7,4 +7,3 @@ python3 -m venv venv
 # Activate environment and install requirements
 . ./venv/bin/activate
 pip install -e .
-. ./debug.sh
