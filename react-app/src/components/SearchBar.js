@@ -25,7 +25,7 @@ class SearchBar extends Component {
   render() {
     return (
       <div className="search-bar">
-        <input id="search-input" className="search-input" type="text" placeholder="nick 0, nick 1, nick 2, ..." onKeyUp={this.search.bind(this)}></input>
+        <input id="search-input" className="search-input" type="text" placeholder="nick 0, nick 1, ..." onKeyUp={this.search.bind(this)}></input>
       </div>
     );
   }
