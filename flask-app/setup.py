@@ -18,5 +18,5 @@ setup(
 #    url='',
     license=license,
     packages=find_packages(exclude=('tests', 'docs')),
-    install_requires=['flask', 'requests',]
+    install_requires=['flask', 'requests', 'ldap3']
 )
