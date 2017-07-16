@@ -1,4 +1,4 @@
-from flask import Flask, Response, request, jsonify
+from flask import Flask, Response, request, jsonify, abort, render_template
 from ldap3 import Server, Connection, ALL
 import json
 import re
@@ -16,6 +16,18 @@ def parse_query(query):
 
 @app.route('/search/<query>')
 def handle_search(query=None):
-    response = Flask.make_response(app, jsonify(nick_list=parse_query(query)))
+    rv = jsonify(nick_list=parse_query(query))
+    response = Flask.make_response(app, rv)
     response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
+@app.route('/search/')
+def handle_empty_search():
+    abort(400)
+
+@app.errorhandler(400)
+def bad_request(error):
+    response = Flask.make_response(app, 'bad request')
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.status = '400'
     return response
