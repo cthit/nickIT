@@ -17,6 +17,12 @@
 * {
   font-family: Roboto, sans-serif; }
 
+body {
+  background-color: #F0F0F0; }
+
+.App-body {
+  padding-top: 10px; }
+
 .App-header {
   background-color: #44aedb;
   text-align: center;
@@ -27,23 +33,43 @@
     text-decoration: none;
     font-size: xx-large; }
 
-.App-body {
-  padding-top: 10px; }
+.Info-body {
+  padding-top: 50px;
+  padding-left: 5%;
+  padding-right: 5%;
+  display: -webkit-flex; }
 
 .search-bar {
-  padding: 5px;
-  padding-left: 15px;
-  padding-right: 15px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding-top: 5px;
   width: 50%;
   margin: auto;
   max-width: 500px; }
   .search-bar .search-input {
+    padding-left: 15px;
+    padding-right: 15px;
     text-align: left;
     height: 40px;
     font-size: 24px;
     border: none;
     outline: none;
-    width: 100%; }
+    width: 100%;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2); }
+    .search-bar .search-input:focus {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); }
+
+.Nick-list {
+  background-color: white;
+  font-size: x-large;
+  margin-right: 5%;
+  box-shadow: 0 1px 16px rgba(0, 0, 0, 0.2);
+  float: left;
+  width: 45%; }
+
+.Statistics-container {
+  background-color: white;
+  margin-left: 5%;
+  box-shadow: 0 1px 16px rgba(0, 0, 0, 0.2);
+  float: right;
+  width: 45%; }
 
 /*# sourceMappingURL=App.css.map */
