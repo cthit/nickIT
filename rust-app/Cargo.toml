@@ -1,0 +1,9 @@
+[package]
+name = "nickit_backend"
+version = "0.0.1"
+authors = ["Joakim Hulthe <joakim@hulthe.net>"]
+
+[dependencies]
+rocket = "0.3.0"
+rocket_codegen = "0.3.0"
+rocket_contrib = "0.3.0"
