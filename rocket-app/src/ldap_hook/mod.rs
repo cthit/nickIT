@@ -1,10 +1,12 @@
 pub mod config;
+pub mod user;
 
 use ldap_hook::config::LdapConfig;
+use ldap_hook::user::LdapUser;
 use ldap3::{LdapConn, Scope, SearchEntry};
 use std::error::Error;
 
-pub fn ldap_search(config: &LdapConfig, filter: &str) -> Result<Vec<String>, Box<Error>> {
+pub fn ldap_search(config: &LdapConfig, filter: &str) -> Result<Vec<LdapUser>, Box<Error>> {
 	let ldap = LdapConn::new(config.url.as_str())?;
 
 	ldap.simple_bind(config.user_dn.as_str(), config.password.as_str())?;
@@ -16,10 +18,10 @@ pub fn ldap_search(config: &LdapConfig, filter: &str) -> Result<Vec<String>, Box
 		config.attributes.clone(),
 	)?;
 
-	let mut list: Vec<String> = vec![];
+	let mut list: Vec<LdapUser> = vec![];
 
 	for entry in rs {
-		list.push(SearchEntry::construct(entry).dn);
+		list.push(LdapUser::from(&SearchEntry::construct(entry)));
 	}
 
 	Ok(list)
