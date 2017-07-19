@@ -13,6 +13,7 @@ extern crate serde_derive;
 fn main() {
 	rocket::ignite().mount("/", routes![
 		endpoints::search::empty_search,
-		endpoints::search::search,
+		endpoints::search::search_nick,
+		endpoints::search::search_uid,
 	]).launch();
 }

@@ -8,9 +8,8 @@ pub fn empty_search() -> Json<Vec<String>> {
 	Json(vec![])
 }
 
-#[get("/search/<query>")]
-pub fn search(query: String) -> Json<Vec<String>> {
-	let nick_list: Vec<String> = query.split(",").map(|s| s.to_string()).collect();
+fn search(query: String, by_uid: bool) -> Json<Vec<String>> {
+	let id_list: Vec<String> = query.split(",").map(|s| s.to_string()).collect();
 
 	let mut result_list: Vec<String> = vec![];
 
@@ -23,8 +22,12 @@ pub fn search(query: String) -> Json<Vec<String>> {
 		}
 	};
 
-	for nick in &nick_list{
-		let filter = format!("(nickname={})", nick); // TODO: Use ldap_config.filter
+	for id in &id_list{
+		let filter = if by_uid {
+			format!("(uid={})", id)
+		} else {
+			format!("(nickname=*{}*)", id)
+		};
 		let res = ldap_search(&ldap_config, filter.as_str());
 
 		match res.ok() {
@@ -40,4 +43,14 @@ pub fn search(query: String) -> Json<Vec<String>> {
 	}
 
 	Json(result_list)
+}
+
+#[get("/search/nick/<query>")]
+pub fn search_nick(query: String) -> Json<Vec<String>> {
+	search(query, false)
+}
+
+#[get("/search/uid/<query>")]
+pub fn search_uid(query: String) -> Json<Vec<String>> {
+	search(query, true)
 }
