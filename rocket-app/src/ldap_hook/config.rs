@@ -8,7 +8,6 @@ use std::error::Error;
 pub struct LdapConfig {
 	pub url:        String,
 	pub base_dn:    String,
-	pub attributes: Vec<String>,
 	pub user_dn:    String,
 	pub password:   String,
 }

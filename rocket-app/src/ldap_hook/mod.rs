@@ -15,7 +15,7 @@ pub fn ldap_search(config: &LdapConfig, filter: &str) -> Result<Vec<LdapUser>, B
 		config.base_dn.as_str(),
 		Scope::Subtree,
 		filter,
-		config.attributes.clone(),
+		vec!["uid", "nickname"],
 	)?;
 
 	let mut list: Vec<LdapUser> = vec![];
