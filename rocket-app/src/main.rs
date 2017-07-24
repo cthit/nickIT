@@ -11,14 +11,13 @@ extern crate ldap3;
 #[macro_use]
 extern crate serde_derive;
 
+use endpoints::search::*;
 use util::cors::CORS;
 
 fn main() {
 	rocket::ignite().mount("/", routes![
-		endpoints::search::empty_search_nick,
-		endpoints::search::search_nick,
-		endpoints::search::empty_search_uid,
-		endpoints::search::search_uid,
+		empty_search,
+		search,
 	]).attach(CORS())
 	  .launch();
 }

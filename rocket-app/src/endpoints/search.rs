@@ -1,16 +1,35 @@
 use rocket_contrib::Json;
+use rocket::request::FromParam;
+use rocket::http::RawStr;
 use ldap_hook::user::LdapUser;
 use ldap_hook::config::LdapConfig;
 use ldap_hook::ldap_search;
 
+#[derive(PartialEq, Eq)]
+pub enum LdapQueryType {
+	Nick,
+	UID,
+}
+
+impl<'a> FromParam<'a> for LdapQueryType {
+	type Error = &'a RawStr;
+	fn from_param(param: &'a RawStr) -> Result<Self, Self::Error> {
+		if param == "nick" {
+			Ok(LdapQueryType::Nick)
+		} else if param == "uid" {
+			Ok(LdapQueryType::UID)
+		} else {
+			Err(param)
+		}
+	}
+}
+
 // Dummy endpoints so that the front-end won't complain
-#[get("/search/nick")]
-pub fn empty_search_nick() -> Json<Vec<String>> { Json(vec![]) }
+#[get("/search/<query_type>")]
+pub fn empty_search(query_type: LdapQueryType) -> Json<Vec<String>> { Json(vec![]) }
 
-#[get("/search/uid")]
-pub fn empty_search_uid()  -> Json<Vec<String>> { Json(vec![]) }
-
-fn search(query: String, by_uid: bool) -> Json<Vec<LdapUser>> {
+#[get("/search/<query_type>/<query>")]
+pub fn search(query_type: LdapQueryType, query: String) -> Json<Vec<LdapUser>> {
 	let id_list: Vec<String> = query.split(",").map(|s| s.to_string()).collect();
 
 	let mut result_list: Vec<LdapUser> = vec![];
@@ -25,7 +44,7 @@ fn search(query: String, by_uid: bool) -> Json<Vec<LdapUser>> {
 	};
 
 	for id in &id_list{
-		let filter = if by_uid {
+		let filter = if query_type == LdapQueryType::UID {
 			format!("(uid={})", id)
 		} else {
 			format!("(nickname=*{}*)", id)
@@ -45,14 +64,4 @@ fn search(query: String, by_uid: bool) -> Json<Vec<LdapUser>> {
 	}
 
 	Json(result_list)
-}
-
-#[get("/search/nick/<query>")]
-pub fn search_nick(query: String) -> Json<Vec<LdapUser>> {
-	search(query, false)
-}
-
-#[get("/search/uid/<query>")]
-pub fn search_uid(query: String) -> Json<Vec<LdapUser>> {
-	search(query, true)
 }
