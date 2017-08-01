@@ -1,0 +1,5 @@
+url        = "ldap://example.org"
+base_dn    = "ou=people,dc=example,dc=org"
+user_dn    = "cn=root,dc=example,dc=org"
+password   = "super-secret"
+
