@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../App.css";
-let request = require("superagent");
+import request from "superagent";
+const baseurl = process.env.REACT_APP_API_HOST + "/search/nick/";
 
 class SearchBar extends Component {
   constructor() {
@@ -10,7 +11,7 @@ class SearchBar extends Component {
 
   request() {
     request
-      .get("http://localhost:8000/search/nick/" + this.previous_input)
+      .get(baseurl + this.previous_input)
       .accept("json")
       .end((err, res) => this.handle_response(err, res));
   }

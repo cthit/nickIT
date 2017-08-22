@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import './App.css';
-
-import AppHeader from './components/AppHeader.js';
-import AppBody from './components/AppBody.js';
+import React, { Component } from "react";
+import "./App.css";
+import AppHeader from "./components/AppHeader.js";
+import AppBody from "./components/AppBody.js";
 
 class App extends Component {
   render() {
