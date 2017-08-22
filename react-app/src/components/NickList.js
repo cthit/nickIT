@@ -1,24 +1,30 @@
-import React, { Component } from 'react';
-import '../App.css';
+import React, { Component } from "react";
+import "../App.css";
 
 class NickList extends Component {
-
   render() {
+    const { nick_list } = this.props;
+
     return (
       <div className="Nick-list">
-        <p>Nick list</p>
-        {this.getNickList(this.props.nick_list)}
+        <h2 className="nick-list-heading">Nick list</h2>
+        {this.getNickList(nick_list)}
       </div>
     );
   }
 
   getNickList(nick_list) {
-    var listItems = nick_list.map( nick =>
-      <li>{nick}</li>
+    var listItems = nick_list.map(item =>
+      <li className="nick-item">
+        {item.nick}
+      </li>
     );
-    return <ul>{listItems}</ul>;
+    return (
+      <ul className="nick-list">
+        {listItems}
+      </ul>
+    );
   }
-
 }
 
 export default NickList;
