@@ -15,7 +15,7 @@ class NickList extends Component {
 
   getNickList(nick_list) {
     var listItems = nick_list.map(item =>
-      <li className="nick-item">
+      <li key={item.uid} className="nick-item">
         {item.nick}
       </li>
     );
