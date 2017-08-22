@@ -37,7 +37,9 @@ body {
   padding-top: 50px;
   padding-left: 5%;
   padding-right: 5%;
-  display: -webkit-flex; }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
 
 .search-bar {
   padding-top: 5px;
@@ -59,17 +61,47 @@ body {
 
 .Nick-list {
   background-color: white;
-  font-size: x-large;
-  margin-right: 5%;
+  margin: 10px;
   box-shadow: 0 1px 16px rgba(0, 0, 0, 0.2);
-  float: left;
-  width: 45%; }
+  flex: 1;
+  min-width: 300px; }
+  .Nick-list .nick-list-heading {
+    font-size: 1.8rem;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #44aedb;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px; }
+  .Nick-list .nick-list {
+    list-style: none;
+    padding: 1em;
+    margin: 0; }
+    .Nick-list .nick-list .nick-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      border-bottom: 1px solid lightgrey; }
+      .Nick-list .nick-list .nick-item:last-child {
+        border: none; }
 
 .Statistics-container {
   background-color: white;
-  margin-left: 5%;
+  margin: 10px;
   box-shadow: 0 1px 16px rgba(0, 0, 0, 0.2);
-  float: right;
-  width: 45%; }
+  flex: 1;
+  min-width: 300px;
+  height: 150px; }
+  .Statistics-container .statistics-heading {
+    font-size: 2rem;
+    padding-bottom: 5px;
+    border-bottom: 2px solid #44aedb;
+    width: 90%;
+    margin: auto;
+    margin-top: 20px; }
+  .Statistics-container p {
+    font-size: 1.2rem;
+    color: grey;
+    text-align: center; }
 
 /*# sourceMappingURL=App.css.map */
