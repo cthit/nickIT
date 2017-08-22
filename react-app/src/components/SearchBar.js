@@ -26,7 +26,6 @@ class SearchBar extends Component {
       } else {
         try {
           var responseObject = JSON.parse(response.text);
-          console.log(responseObject);
           this.props.onSearch(responseObject);
         } catch (Error) {
           // Isn't JSON so we do nothing with the response.
