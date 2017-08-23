@@ -6,10 +6,10 @@ class NickList extends Component {
     const { nick_list } = this.props;
 
     return (
-      <div className="Nick-list">
+      <article className="Nick-list">
         <h2 className="nick-list-heading">Nick list</h2>
         {this.getNickList(nick_list)}
-      </div>
+      </article>
     );
   }
 
