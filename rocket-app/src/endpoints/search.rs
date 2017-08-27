@@ -38,8 +38,7 @@ pub fn search(query_type: LdapQueryType, query: String) -> Json<Vec<LdapUser>> {
 	let ldap_config = match LdapConfig::load("config.toml") {
 		Ok(ldap_config) => ldap_config,
 		Err(msg) => {
-			println!("Could not load config.toml: {}", msg);
-			panic!();
+			panic!("Could not load config.toml: {}", msg);
 		}
 	};
 
