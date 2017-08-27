@@ -61,5 +61,10 @@ pub fn search(query_type: LdapQueryType, query: String) -> Json<Vec<LdapUser>> {
 		}
 	}
 
+	result_list.sort_by(|a, b| match query_type {
+		LdapQueryType::UID  => a.uid .cmp(&b.uid ),
+		LdapQueryType::Nick => a.nick.cmp(&b.nick),
+	});
+
 	Json(result_list)
 }
