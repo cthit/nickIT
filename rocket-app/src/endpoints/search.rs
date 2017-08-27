@@ -43,10 +43,9 @@ pub fn search(query_type: LdapQueryType, query: String) -> Json<Vec<LdapUser>> {
 	};
 
 	for id in &id_list{
-		let filter = if query_type == LdapQueryType::UID {
-			format!("(uid={})", id)
-		} else {
-			format!("(nickname=*{}*)", id)
+		let filter = match query_type {
+			LdapQueryType::UID  => format!("(uid={})", id),
+			LdapQueryType::Nick => format!("(nickname=*{}*)", id), // Basic fuzzy search when querying by nicknames
 		};
 		let res = ldap_search(&ldap_config, filter.as_str());
 
