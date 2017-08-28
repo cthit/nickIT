@@ -10,7 +10,7 @@ class SearchBar extends Component {
   }
 
   jsonify_query(query) {
-    var params = query.split(",");
+    let params = query.split(",");
     params = params.map(p => p.trim());
     params = params.filter(p => p !== "");
     return JSON.stringify(params);

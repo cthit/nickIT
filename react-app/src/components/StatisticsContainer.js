@@ -6,7 +6,7 @@ class StatisticsContainer extends Component {
     return (
       <article className="Statistics-container">
         <h2 className="statistics-heading">Statistics</h2>
-        <p>Coming soon™</p>
+        <p>Coming soon...</p>
       </article>
     );
   }
