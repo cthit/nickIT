@@ -9,9 +9,16 @@ class SearchBar extends Component {
     this.previous_input = "";
   }
 
+  jsonify_query(query) {
+    var params = query.split(",");
+    params = params.map(p => p.trim());
+    params = params.filter(p => p !== "");
+    return JSON.stringify(params);
+  }
+
   request() {
     request
-      .get(baseurl + this.previous_input)
+      .get(baseurl + this.jsonify_query(this.previous_input))
       .accept("json")
       .end((err, res) => this.handle_response(err, res));
   }
