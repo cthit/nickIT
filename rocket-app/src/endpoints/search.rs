@@ -25,8 +25,8 @@ impl<'a> FromParam<'a> for LdapQueryType {
 }
 
 // Dummy endpoints so that the front-end won't complain
-#[get("/search/<query_type>")]
-pub fn empty_search(query_type: LdapQueryType) -> Json<Vec<String>> { Json(vec![]) }
+#[get("/search/<_query_type>")]
+pub fn empty_search(_query_type: LdapQueryType) -> Json<Vec<String>> { Json(vec![]) }
 
 #[get("/search/<query_type>/<query>")]
 pub fn search(query_type: LdapQueryType, query: String) -> Json<Vec<LdapUser>> {
