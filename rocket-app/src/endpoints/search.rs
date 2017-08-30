@@ -1,9 +1,10 @@
 use rocket_contrib::Json;
 use rocket::request::FromParam;
-use rocket::http::RawStr;
+use rocket::http::{RawStr, Status};
 use ldap_hook::user::LdapUser;
 use ldap_hook::config::LdapConfig;
 use ldap_hook::ldap_search;
+use serde_json;
 
 #[derive(PartialEq, Eq)]
 pub enum LdapQueryType {
@@ -29,8 +30,11 @@ impl<'a> FromParam<'a> for LdapQueryType {
 pub fn empty_search(_query_type: LdapQueryType) -> Json<Vec<String>> { Json(vec![]) }
 
 #[get("/search/<query_type>/<query>")]
-pub fn search(query_type: LdapQueryType, query: String) -> Json<Vec<LdapUser>> {
-	let id_list: Vec<String> = query.split(",").map(|s| s.to_string()).collect();
+pub fn search(query_type: LdapQueryType, query: String) -> Result<Json<Vec<LdapUser>>, Status> {
+	let id_list: Vec<String> = match serde_json::from_str(query.as_str()) {
+		Ok(l)  => l,
+		Err(_) => { return Err(Status::BadRequest); }, // TODO: Proper error code (currently always yields 500)
+	};
 
 	let mut result_list: Vec<LdapUser> = vec![];
 
@@ -38,7 +42,8 @@ pub fn search(query_type: LdapQueryType, query: String) -> Json<Vec<LdapUser>> {
 	let ldap_config = match LdapConfig::load("config.toml") {
 		Ok(ldap_config) => ldap_config,
 		Err(msg) => {
-			panic!("Could not load config.toml: {}", msg);
+			println!("Could not load config.toml: {}", msg);
+			return Err(Status::InternalServerError);
 		}
 	};
 
@@ -66,5 +71,5 @@ pub fn search(query_type: LdapQueryType, query: String) -> Json<Vec<LdapUser>> {
 		LdapQueryType::Nick => a.nick.cmp(&b.nick),
 	});
 
-	Json(result_list)
+	Ok(Json(result_list))
 }

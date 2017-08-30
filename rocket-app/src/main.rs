@@ -8,8 +8,8 @@ mod util;
 extern crate rocket;
 extern crate rocket_contrib;
 extern crate ldap3;
-#[macro_use]
-extern crate serde_derive;
+#[macro_use] extern crate serde_derive;
+extern crate serde_json;
 
 use endpoints::search::*;
 use util::cors::CORS;
