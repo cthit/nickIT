@@ -1,6 +1,7 @@
 use rocket_contrib::Json;
 use rocket::request::FromParam;
 use rocket::http::{RawStr, Status};
+use rocket::response::status;
 use ldap_hook::user::LdapUser;
 use ldap_hook::config::LdapConfig;
 use ldap_hook::ldap_search;
@@ -30,10 +31,19 @@ impl<'a> FromParam<'a> for LdapQueryType {
 pub fn empty_search(_query_type: LdapQueryType) -> Json<Vec<String>> { Json(vec![]) }
 
 #[get("/search/<query_type>/<query>")]
-pub fn search(query_type: LdapQueryType, query: String) -> Result<Json<Vec<LdapUser>>, Status> {
+pub fn search(query_type: LdapQueryType, query: String) -> Result<Json<Vec<LdapUser>>, status::Custom<Json>> {
 	let id_list: Vec<String> = match serde_json::from_str(query.as_str()) {
 		Ok(l)  => l,
-		Err(_) => { return Err(Status::BadRequest); }, // TODO: Proper error code (currently always yields 500)
+		Err(_) => {
+			return Err(status::Custom(
+				Status::BadRequest,
+				Json(json!({
+					"success":false,
+					"code":400,
+					"reason":"Invalid JSON",
+				}))
+			)); 
+		},
 	};
 
 	let mut result_list: Vec<LdapUser> = vec![];
@@ -43,7 +53,14 @@ pub fn search(query_type: LdapQueryType, query: String) -> Result<Json<Vec<LdapU
 		Ok(ldap_config) => ldap_config,
 		Err(msg) => {
 			println!("Could not load config.toml: {}", msg);
-			return Err(Status::InternalServerError);
+			return Err(status::Custom(
+				Status::InternalServerError,
+				Json(json!({
+					"success":false,
+					"code":500,
+					"reason":"Internal Server Error",
+				}))
+			));
 		}
 	};
 
