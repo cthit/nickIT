@@ -6,7 +6,7 @@ mod endpoints;
 mod util;
 
 extern crate rocket;
-extern crate rocket_contrib;
+#[macro_use] extern crate rocket_contrib;
 extern crate ldap3;
 #[macro_use] extern crate serde_derive;
 extern crate serde_json;
