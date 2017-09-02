@@ -9,7 +9,7 @@ class SearchBar extends Component {
     this.previous_input = "";
   }
 
-  tokenize_query(query) {
+  jsonify_query(query) {
     let params = query.split(",");
     params = params.map(p => p.trim());
     params = params.filter(p => p !== "");
@@ -18,7 +18,7 @@ class SearchBar extends Component {
 
   request() {
     request
-      .get(baseurl + this.tokenize_query(this.previous_input))
+      .get(baseurl + this.jsonify_query(this.previous_input))
       .accept("json")
       .end((err, res) => this.handle_response(err, res));
   }
@@ -48,7 +48,7 @@ class SearchBar extends Component {
         <input
           id="search-input"
           className="search-input"
-          type="text"
+          type="search"
           placeholder="nick 0, nick 1, ..."
           onChange={this.search.bind(this)}
         />
