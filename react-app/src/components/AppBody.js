@@ -14,11 +14,10 @@ class AppBody extends Component {
 
   render() {
     const { nick_list: NICK_LIST } = this.state;
-    const handleSearch = this.handleSearch.bind(this);
 
     return (
       <div className="app-body">
-        <SearchBar onSearch={handleSearch} />
+        <SearchBar onSearch={this.handleSearch} />
         <main className="info-body">
           <NickList nick_list={NICK_LIST} />
           <StatisticsContainer />
@@ -27,11 +26,11 @@ class AppBody extends Component {
     );
   }
 
-  handleSearch(list) {
+  handleSearch = list => {
     this.setState({
       nick_list: list
     });
-  }
+  };
 }
 
 export default AppBody;

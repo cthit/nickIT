@@ -42,6 +42,11 @@ class SearchBar extends Component {
     }
   }
 
+  search = value => {
+    this.previous_input = value;
+    this.request();
+  };
+
   render() {
     return (
       <div className="search-bar">
@@ -50,16 +55,10 @@ class SearchBar extends Component {
           className="search-input"
           type="search"
           placeholder="nick 0, nick 1, ..."
-          onChange={this.search.bind(this)}
+          onChange={e => this.search(e.target.value)}
         />
       </div>
     );
-  }
-
-  search() {
-    var raw_input = document.getElementById("search-input").value;
-    this.previous_input = raw_input;
-    this.request();
   }
 }
 
