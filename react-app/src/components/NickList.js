@@ -14,16 +14,13 @@ class NickList extends Component {
   }
 
   getNickList(nick_list) {
-    var listItems = nick_list.map(item =>
+    console.log(nick_list);
+    var listItems = nick_list.map(item => (
       <li key={item.uid} className="nick-item">
         {item.nick}
       </li>
-    );
-    return (
-      <ul className="nick-list">
-        {listItems}
-      </ul>
-    );
+    ));
+    return <ul className="nick-list">{listItems}</ul>;
   }
 }
 
