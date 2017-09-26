@@ -4,10 +4,9 @@ import request from "superagent";
 const baseurl = process.env.REACT_APP_API_HOST + "/search/nick/";
 
 class SearchBar extends Component {
-  constructor() {
-    super();
-    this.previous_input = "";
-  }
+  state = {
+    previous_input: ""
+  };
 
   tokenize_query(query) {
     let params = query.split(",");
@@ -16,12 +15,12 @@ class SearchBar extends Component {
     return JSON.stringify(params);
   }
 
-  request() {
+  request = () => {
+    let previous_input = this.state.previous_input;
     request
-      .get(baseurl + this.tokenize_query(this.previous_input))
-      .accept("json")
+      .get(baseurl + this.tokenize_query(previous_input))
       .end((err, res) => this.handle_response(err, res));
-  }
+  };
 
   handle_response(error, response) {
     if (error) {
@@ -43,8 +42,12 @@ class SearchBar extends Component {
   }
 
   search = value => {
-    this.previous_input = value;
-    this.request();
+    this.setState(
+      {
+        previous_input: value
+      },
+      this.request
+    );
   };
 
   render() {

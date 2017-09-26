@@ -5,12 +5,9 @@ import NickList from "./NickList";
 import StatisticsContainer from "./StatisticsContainer";
 
 class AppBody extends Component {
-  constructor() {
-    super();
-    this.state = {
-      nick_list: []
-    };
-  }
+  state = {
+    nick_list: []
+  };
 
   render() {
     const { nick_list: NICK_LIST } = this.state;
